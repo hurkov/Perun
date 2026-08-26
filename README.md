@@ -13,12 +13,12 @@ Full API reference is served live at `GET /help`, and documented in [API.md](API
 
 ## Quick start (Docker)
 
-The recommended way to run Perun — it bundles the ALSA runtime and handles the
-persistent data directory for you.
+The recommended way to run Perun — the image bundles the ALSA runtime and
+handles the persistent data directory for you.
 
 ```bash
-# 1. Build the image (Linux host, or any machine with Docker)
-docker build -t perun .
+# 1. Pull the image from Docker Hub
+docker pull hurkov/perun:latest
 
 # 2. Run it with the audio device + a persistent volume
 docker run -d \
@@ -26,7 +26,7 @@ docker run -d \
   -p 3030:3030 \
   -v perun-data:/var/lib/perun \
   --device /dev/snd \
-  perun
+  hurkov/perun:latest
 ```
 
 The `--device /dev/snd` flag is what gives the container access to your sound
@@ -39,6 +39,19 @@ Or use the bundled compose file (it already wires the device, volume, and
 docker compose up -d
 ```
 
+> Note: the bundled `docker-compose.yml` uses `build: .` (build, then run).
+> To run the published image with compose, set
+> `image: hurkov/perun:latest` and drop the `build:` line.
+
+### Build your own image (optional)
+
+To run a development build or the current source instead of the published
+image:
+
+```bash
+docker build -t perun .
+```
+
 ### LAN-only / no-internet host
 
 If the target box can't reach a registry, build + save on a machine that can,
@@ -46,8 +59,8 @@ copy the image file over, then load:
 
 ```bash
 # build machine
-docker build -t perun:latest .
-docker save perun:latest -o perun.img
+docker build -t hurkov/perun:latest .
+docker save hurkov/perun:latest -o perun.img
 
 # target box
 docker load -i perun.img
