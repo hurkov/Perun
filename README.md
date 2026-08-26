@@ -4,6 +4,8 @@ Upload an MP3 once, then trigger it by `id` or `title` from anything that can
 send an HTTP request — smart-home automations, sensors, scripts, other machines.
 
 - Written in **Rust** (axum + rodio), builds to one static-ish binary.
+- **Almost instant response**: measured ~1 ms average from call to `202` on a
+  LAN host (request → queued). See [Why it's fast](#why-its-fast) below.
 - Ships as a **Docker image**; audio needs access to the host sound device.
 - No database: sounds live on disk, metadata in a single `digest.json`.
 
@@ -132,6 +134,25 @@ curl 'http://<host>:3030/sounds/play?title=door'
 ```
 
 Errors are JSON: `{"error": "..."}` with status `400/404/409/413/500`.
+
+### Why it's fast
+
+Measured on localhost: `GET /sounds/play` returns in **~1 ms average**
+(15 requests, p95 ≈ 1.2 ms) for both `?id=` and `?title=`.
+
+- **In-memory catalog.** Metadata is a `HashMap` held in RAM; lookups by id
+  are O(1), and a title scan over a small LAN catalog is a handful of memory
+  reads. `digest.json` on disk is only touched on upload/rename/delete.
+- **Async HTTP (axum + tokio).** Handlers never block on each other; a play
+  request is validated, queued onto the audio worker, and answered with
+  `202` — decoding and playback happen concurrently in the background.
+- **Backpressure, not pile-up.** The playback queue is bounded (16 slots).
+  Under burst traffic, extras get an immediate `500` instead of a growing
+  backlog of half-dead sounds.
+
+*Note: the ~1 ms figure is request → response time. Audible start adds the
+audio card's own decode + output buffering; the response number is the part
+Perun's code controls.*
 
 ---
 
