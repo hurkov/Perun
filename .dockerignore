@@ -1,0 +1,8 @@
+target
+soundbank
+.docs
+.git
+.idea
+bruno
+docker-compose.yml
+*.md

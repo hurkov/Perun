@@ -1,0 +1,15 @@
+meta {
+  name: Play by ID
+  type: http
+  seq: 3
+}
+
+get {
+  url: {{baseUrl}}/api/sounds/play
+  body: none
+  auth: none
+}
+
+params:query {
+  id: {{soundId}}
+}

@@ -1,0 +1,16 @@
+meta {
+  name: Upload Sound
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{baseUrl}}/api/sounds/upload
+  body: multipartForm
+  auth: none
+}
+
+body:multipart-form {
+  title: {{uploadTitle}}
+  file: @{{uploadFilePath}}
+}

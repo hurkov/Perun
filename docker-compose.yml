@@ -1,0 +1,17 @@
+services:
+  perun:
+    build: .
+    image: perun:latest
+    ports:
+      - "3030:3030"
+    environment:
+      RUST_LOG: info
+    devices:
+      - /dev/snd:/dev/snd
+    group_add:
+      - audio
+    volumes:
+      - perun-data:/var/lib/perun
+
+volumes:
+  perun-data:

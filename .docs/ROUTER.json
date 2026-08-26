@@ -1,0 +1,43 @@
+{
+  "project": "Perun",
+  "description": "Low-latency audio notification playback service for Docker/Linux LAN deployment",
+  "documentation_structure": {
+    "ROUTER.json": "This file - documentation structure and navigation guide",
+    "ROUTER.md": "Human-readable navigation guide and project overview",
+    "progress/": {
+      "description": "Current project status and task tracking",
+      "files": {
+        "current-focus.md": "What's being worked on right now (current session/sprint)",
+        "next-steps.md": "Immediate next tasks and priorities",
+        "completed.md": "Recently finished work and milestones"
+      }
+    },
+    "decisions/": {
+      "description": "Architecture and design decisions with rationale",
+      "files": {
+        "decision-log.md": "Record of key decisions, tradeoffs, and why they were made"
+      }
+    },
+    "technical/": {
+      "description": "Technical reference documentation",
+      "files": {
+        "architecture.md": "Module structure, data flow, design patterns",
+        "api.md": "HTTP endpoint specifications",
+        "audio.md": "Playback queue, worker, and rodio policy",
+        "deployment.md": "Docker, configuration, security model",
+        "development.md": "Build commands, dependencies, roadmap",
+        "logging.md": "Logging status and policy"
+      }
+    },
+    "tree/": {
+      "description": "Literal documentation mirror of the project tree",
+      "entrypoint": "tree/ROUTE.md"
+    }
+  },
+  "quick_start": {
+    "new_contributor": "Start with ROUTER.md, then progress/current-focus.md",
+    "resume_work": "Read progress/current-focus.md and progress/next-steps.md",
+    "understand_decisions": "See decisions/decision-log.md",
+    "technical_reference": "Browse technical/ folder"
+  }
+}

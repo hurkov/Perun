@@ -1,0 +1,15 @@
+meta {
+  name: Delete by ID
+  type: http
+  seq: 5
+}
+
+delete {
+  url: {{baseUrl}}/api/sounds/delete
+  body: none
+  auth: none
+}
+
+params:query {
+  id: {{soundId}}
+}
