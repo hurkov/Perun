@@ -3,6 +3,6 @@ soundbank
 .docs
 .git
 .idea
-bruno
+.bruno
 docker-compose.yml
 *.md

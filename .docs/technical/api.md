@@ -14,7 +14,7 @@ All API errors return JSON `{"error":"..."}` bodies via the shared `ApiError` ty
 
 ## Bruno collection
 
-Ready-to-use Bruno requests live under `../../bruno/`. Select the `local`
+Ready-to-use Bruno requests live under `../../.bruno/`. Select the `local`
 environment and adjust `uploadFilePath` before using the multipart upload
 request.
 
